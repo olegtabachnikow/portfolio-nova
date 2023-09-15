@@ -8,9 +8,9 @@ interface TransformState {
 }
 
 const initialState: TransformState = {
-  x: 0,
-  y: 0,
-  z: 0,
+  x: 3,
+  y: 3,
+  z: 3,
 };
 
 export const novaTransform = createSlice({

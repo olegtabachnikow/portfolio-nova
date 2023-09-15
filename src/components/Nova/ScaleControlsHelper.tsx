@@ -6,12 +6,10 @@ import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../../redux/store';
 import { setIsCameraMoving } from '../../redux/nova-is-moving-slice';
 
-export const TransformControlsHelper: FC<TransformControlsProps> = ({
+export const ScaleControlsHelper: FC<TransformControlsProps> = ({
   children,
 }) => {
-  const currentTransform = useSelector(
-    (state: RootState) => state.novaTransform
-  );
+  const currentScale = useSelector((state: RootState) => state.novaTransform);
   const isMoving = useSelector((state: RootState) => state.isCameraMoving);
   const controlsRef = useRef<any>();
   const dispatch = useDispatch();
@@ -20,9 +18,9 @@ export const TransformControlsHelper: FC<TransformControlsProps> = ({
   const updateTransform = () => {
     dispatch(setIsCameraMoving({ isMoving: true }));
     const targetScale = new THREE.Vector3(
-      currentTransform.x,
-      currentTransform.y,
-      currentTransform.z
+      currentScale.x,
+      currentScale.y,
+      currentScale.z
     );
     let t = 0;
     const duration = 0.5;

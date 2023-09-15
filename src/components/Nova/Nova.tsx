@@ -1,9 +1,9 @@
 import { FC } from 'react';
 import * as THREE from 'three';
 import { Canvas } from '@react-three/fiber';
-import { Points } from './Points';
+import { Stars } from './Stars';
 import { OrbitControlsHelper } from './OrbitControlsHelper';
-import { TransformControlsHelper } from './TransformControlsHelper';
+import { ScaleControlsHelper } from './ScaleControlsHelper';
 
 export const Nova: FC = () => {
   const cameraSettings: any = {
@@ -22,9 +22,9 @@ export const Nova: FC = () => {
         outputColorSpace: THREE.LinearSRGBColorSpace,
       }}
     >
-      <TransformControlsHelper>
-        <Points />
-      </TransformControlsHelper>
+      <ScaleControlsHelper>
+        <Stars />
+      </ScaleControlsHelper>
       <OrbitControlsHelper />
     </Canvas>
   );

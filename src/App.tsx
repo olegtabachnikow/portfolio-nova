@@ -3,7 +3,7 @@ import { Nova } from './components/Nova/Nova';
 import { useDispatch } from 'react-redux';
 import { setCameraPosition } from './redux/nova-position-slice';
 import { setIsCameraMoving } from './redux/nova-is-moving-slice';
-import { setTransform } from './redux/nova-transform-slice';
+import { setTransform } from './redux/nova-scale-slice';
 
 export const App: FC = () => {
   const dispatch = useDispatch();

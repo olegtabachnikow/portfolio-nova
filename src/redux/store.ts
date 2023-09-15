@@ -1,7 +1,7 @@
 import { configureStore } from '@reduxjs/toolkit';
 import { cameraPosition } from './nova-position-slice';
 import { isCameraMoving } from './nova-is-moving-slice';
-import { novaTransform } from './nova-transform-slice';
+import { novaTransform } from './nova-scale-slice';
 
 export const store = configureStore({
   reducer: {
