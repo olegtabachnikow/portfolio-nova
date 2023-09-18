@@ -23,7 +23,7 @@ export const ScaleControlsHelper: FC<TransformControlsProps> = ({
       currentScale.z
     );
     let t = 0;
-    const duration = 0.5;
+    const duration = 0.2;
 
     const transform = () => {
       t += 1 / 60;

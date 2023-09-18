@@ -1,0 +1,16 @@
+.card-about-text {
+  font-family: 'Jost', sans-serif;
+  font-size: 14px;
+  color: rgba(255, 255, 255, 0.7);
+  margin: 10px 0;
+}
+.card-icon-container {
+  display: flex;
+}
+.card-icon {
+  margin-right: 10px;
+  transition: all 0.2s linear;
+}
+.card-icon:hover {
+  transform: scale(1.1);
+}

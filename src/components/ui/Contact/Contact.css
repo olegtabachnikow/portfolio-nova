@@ -1,0 +1,53 @@
+.contact-title {
+  margin-bottom: 15px;
+  display: block;
+}
+.contact-link {
+  color: white;
+  text-decoration: none;
+  font-family: 'Jost', sans-serif;
+  opacity: 0.7;
+  transition: all 0.2s ease-in-out;
+  display: flex;
+  font-size: 16px;
+  align-items: center;
+  margin-bottom: 10px;
+}
+.contact-link:hover {
+  opacity: 1;
+}
+.contact-link-icon {
+  filter: invert(99%) sepia(5%) saturate(1915%) hue-rotate(270deg)
+    brightness(118%) contrast(100%);
+}
+.contact-icon-container {
+  padding: 5px 10px 5px 5px;
+  margin-right: 10px;
+  border-right: 1px solid gray;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.contact-cv-button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 10px;
+  height: 50px;
+  width: 100%;
+  color: white;
+  text-decoration: none;
+  font-family: 'Jost', sans-serif;
+  background: linear-gradient(
+    to right,
+    rgba(239, 161, 4, 0.8) 0%,
+    rgba(122, 56, 245, 0.8) 96%
+  );
+  text-transform: uppercase;
+  margin-top: 40px;
+  transition: all 0.2s ease-in-out;
+  opacity: 0.8;
+}
+.contact-cv-button:hover {
+  opacity: 1;
+}

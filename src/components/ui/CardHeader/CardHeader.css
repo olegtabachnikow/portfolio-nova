@@ -1,0 +1,57 @@
+.card-overlay {
+  background-image: url(../../../images/background.jpeg);
+  background-position: top;
+  width: 100%;
+  height: 200px;
+  top: 0;
+  left: 0;
+  position: absolute;
+  filter: blur(30px);
+  background-size: 110% 180px;
+  background-repeat: no-repeat;
+  opacity: 0.8;
+  transition: all 0.2s ease-in-out;
+}
+.card-overlay.moved {
+  height: 100px;
+}
+.card-header {
+  padding: 20px;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  height: 200px;
+  box-sizing: border-box;
+  transition: all 0.2s ease-in-out;
+}
+.card-header.moved {
+  height: 100px;
+}
+.card-header-title {
+  position: absolute;
+  top: 110px;
+  font-family: 'Jost', sans-serif;
+  color: white;
+  font-weight: 400;
+  transition: all 0.2s ease-in-out;
+}
+.card-header-subtitle {
+  position: absolute;
+  top: 160px;
+  font-family: 'Jost', sans-serif;
+  text-transform: uppercase;
+  font-size: 14px;
+  opacity: 0.8;
+  font-weight: 400;
+  color: rgba(255, 255, 255, 0.7);
+  transition: all 0.2s ease-in-out;
+}
+
+.card-header-title.moved {
+  transform: translate(15px, -105px) scale(0.7);
+}
+.card-header-subtitle.moved {
+  transform: translate(3px, -115px) scale(0.8);
+}

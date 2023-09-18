@@ -26,7 +26,7 @@ export const OrbitControlsHelper: FC = () => {
     const startPosition = camera.position.clone();
 
     let t = 0;
-    const duration = 0.5;
+    const duration = 0.2;
 
     const moveCamera = () => {
       t += 1 / 60;

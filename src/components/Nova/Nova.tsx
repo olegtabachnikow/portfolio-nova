@@ -1,4 +1,5 @@
 import { FC } from 'react';
+import './Nova.css';
 import * as THREE from 'three';
 import { Canvas } from '@react-three/fiber';
 import { Stars } from './Stars';
@@ -14,18 +15,20 @@ export const Nova: FC = () => {
   };
 
   return (
-    <Canvas
-      camera={cameraSettings}
-      gl={{
-        antialias: false,
-        toneMapping: THREE.LinearToneMapping,
-        outputColorSpace: THREE.LinearSRGBColorSpace,
-      }}
-    >
-      <ScaleControlsHelper>
-        <Stars />
-      </ScaleControlsHelper>
-      <OrbitControlsHelper />
-    </Canvas>
+    <div className='nova-container'>
+      <Canvas
+        camera={cameraSettings}
+        gl={{
+          antialias: false,
+          toneMapping: THREE.LinearToneMapping,
+          outputColorSpace: THREE.LinearSRGBColorSpace,
+        }}
+      >
+        <ScaleControlsHelper>
+          <Stars />
+        </ScaleControlsHelper>
+        <OrbitControlsHelper />
+      </Canvas>
+    </div>
   );
 };

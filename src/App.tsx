@@ -1,48 +1,62 @@
-import { FC } from 'react';
+import { FC, useEffect, useLayoutEffect } from 'react';
+import '../node_modules/normalize.css/normalize.css';
 import { Nova } from './components/Nova/Nova';
 import { useDispatch } from 'react-redux';
 import { setCameraPosition } from './redux/nova-position-slice';
 import { setIsCameraMoving } from './redux/nova-is-moving-slice';
 import { setTransform } from './redux/nova-scale-slice';
+import { Card } from './components/ui/Card/Card';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 export const App: FC = () => {
   const dispatch = useDispatch();
-  function handleClick() {
+  const navigate = useNavigate();
+  const location = useLocation();
+
+  function handleFirstMove() {
     dispatch(setTransform({ x: 1, y: 1, z: 1 }));
     dispatch(setIsCameraMoving({ isMoving: true }));
-    dispatch(setCameraPosition({ x: 20, y: 50, z: 50 }));
+    dispatch(setCameraPosition({ x: 10, y: 15, z: 35 }));
   }
-  function handleClickNumberTwo() {
-    dispatch(setTransform({ x: 4, y: 4, z: 1 }));
+  function handleSecondMove() {
+    dispatch(setTransform({ x: 2, y: 2, z: 2 }));
     dispatch(setIsCameraMoving({ isMoving: true }));
-    dispatch(setCameraPosition({ x: 10, y: 50, z: 10 }));
+    dispatch(setCameraPosition({ x: 20, y: 50, z: 20 }));
   }
-  function handleClickNumberThree() {
-    dispatch(setTransform({ x: 4, y: 4, z: 1 }));
+  function handleThirdMove() {
+    dispatch(setTransform({ x: 2, y: 2, z: 2 }));
     dispatch(setIsCameraMoving({ isMoving: true }));
-    dispatch(setCameraPosition({ x: 40, y: 10, z: 10 }));
+    dispatch(setCameraPosition({ x: 15, y: 13, z: 15 }));
   }
+
+  useLayoutEffect(() => {
+    navigate('/about');
+  }, []);
+
+  useEffect(() => {
+    navigate('/about');
+  }, []);
+
+  useEffect(() => {
+    location.pathname === '/about' && handleFirstMove();
+    location.pathname === '/experience' && handleSecondMove();
+    location.pathname === '/contact' && handleThirdMove();
+  });
+
   return (
-    <div style={{ height: '100vh', width: '100vw', position: 'relative' }}>
-      <button
-        onClick={handleClick}
-        style={{ position: 'absolute', top: 100, left: 100, zIndex: 1 }}
-      >
-        One
-      </button>
-      <button
-        onClick={handleClickNumberTwo}
-        style={{ position: 'absolute', top: 100, right: 100, zIndex: 1 }}
-      >
-        Two
-      </button>
-      <button
-        onClick={handleClickNumberThree}
-        style={{ position: 'absolute', top: 100, right: 400, zIndex: 1 }}
-      >
-        Three
-      </button>
+    <div
+      style={{
+        height: '100vh',
+        width: '100vw',
+        position: 'relative',
+        overflow: 'hidden',
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+      }}
+    >
       <Nova />
+      <Card />
     </div>
   );
 };
