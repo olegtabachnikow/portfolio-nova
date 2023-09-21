@@ -9,7 +9,6 @@
   background-size: 110% 180px;
   background-repeat: no-repeat;
   opacity: 0.8;
-  transition: all 0.2s ease-in-out;
 }
 .card-header {
   padding: 20px;
@@ -19,7 +18,6 @@
   align-items: center;
   width: 100%;
   box-sizing: border-box;
-  transition: all 0.2s ease-in-out;
 }
 .card-header-title {
   position: absolute;
