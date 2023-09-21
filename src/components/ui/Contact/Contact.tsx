@@ -3,12 +3,18 @@ import './Contact.css';
 import locationMarker from '../../../images/location.svg';
 import phone from '../../../images/phone.svg';
 import mail from '../../../images/mail.svg';
+import { CardContentWrapper } from '../CardContentWrapper/CardContentWrapper';
+import { useMediaQuery } from 'react-responsive';
+import { motion } from 'framer-motion';
 
 export const Contact: FC = () => {
+  const isTabletOrMobile = useMediaQuery({ query: '(max-width: 1224px)' });
   return (
-    <div className='content-container'>
+    <CardContentWrapper>
       <span className='content-title contact-title'>contact</span>
-      <a
+      <motion.a
+        whileTap={{ scale: 0.8 }}
+        whileHover={{ opacity: 1 }}
         className='contact-link'
         href='https://maps.app.goo.gl/6eiMM5aqH1RDXTnX7'
         target='blank'
@@ -22,8 +28,13 @@ export const Contact: FC = () => {
           />
         </div>
         <span>Sderot Sheshet HaYamim 30, Tel Aviv-Jaffa</span>
-      </a>
-      <a className='contact-link' href='tel:+972539240665'>
+      </motion.a>
+      <motion.a
+        whileTap={{ scale: 0.8 }}
+        whileHover={{ opacity: 1 }}
+        className='contact-link'
+        href='tel:+972539240665'
+      >
         <div className='contact-icon-container'>
           <img
             className='contact-link-icon'
@@ -33,8 +44,13 @@ export const Contact: FC = () => {
           />
         </div>
         <span>+972539240665</span>
-      </a>
-      <a className='contact-link' href='mailto:olegtabachnikow@gmail.com'>
+      </motion.a>
+      <motion.a
+        whileTap={{ scale: 0.8 }}
+        whileHover={{ opacity: 1 }}
+        className='contact-link'
+        href='mailto:olegtabachnikow@gmail.com'
+      >
         <div className='contact-icon-container'>
           <img
             className='contact-link-icon'
@@ -44,14 +60,15 @@ export const Contact: FC = () => {
           />
         </div>
         <span>olegtabachnikow@gmail.com</span>
-      </a>
-      <a
-        className='contact-cv-button'
+      </motion.a>
+      <motion.a
+        whileTap={{ scale: 0.8 }}
+        className={`contact-cv-button ${isTabletOrMobile ? 'mobile' : ''}`}
         href='https://github.com/Eskel4ik/portfolio/raw/gh-pages/OlegTabachnikowCV.pdf'
         download
       >
         Download CV
-      </a>
-    </div>
+      </motion.a>
+    </CardContentWrapper>
   );
 };

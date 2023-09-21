@@ -1,10 +1,11 @@
 import { FC } from 'react';
 import './Experience.css';
 import { ExperienceItem } from '../ExperienceItem/ExperienceItem';
+import { CardContentWrapper } from '../CardContentWrapper/CardContentWrapper';
 
 export const Experience: FC = () => {
   return (
-    <div className='content-container'>
+    <CardContentWrapper>
       <span className='content-title'>work experience</span>
       <div className='experience-items-container'>
         <ExperienceItem
@@ -34,6 +35,6 @@ export const Experience: FC = () => {
           text='Developed a responsive and user-friendly Single Page Application (SPA). Assumed a leadership role in strategizing project roadmap, effectively coordinating with key stakeholders to maintain alignment throughout the development process.'
         />
       </div>
-    </div>
+    </CardContentWrapper>
   );
 };

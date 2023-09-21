@@ -15,6 +15,8 @@ const pushShift = () => {
   );
 };
 
+THREE.ColorManagement.enabled = true;
+
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 //@ts-ignore
 const pts = new Array(50000).fill().map(() => {
@@ -109,7 +111,7 @@ export const Stars: FC = () => {
   });
 
   return (
-    <points ref={stars} rotation={[0, 0.2, 0]}>
+    <points ref={stars}>
       <bufferGeometry attach='geometry' {...geometry} />
       <pointsMaterial
         size={0.155}

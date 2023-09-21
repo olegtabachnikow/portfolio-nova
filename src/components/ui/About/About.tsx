@@ -1,10 +1,11 @@
 import { FC } from 'react';
 import './About.css';
 import { SocialIcon } from 'react-custom-social-icons';
+import { CardContentWrapper } from '../CardContentWrapper/CardContentWrapper';
 
 export const About: FC = () => {
   return (
-    <div className='content-container'>
+    <CardContentWrapper>
       <span className='content-title'>About</span>
       <p className='card-about-text'>
         As a highly motivated Frontend developer, my experience covers Israel
@@ -55,6 +56,6 @@ export const About: FC = () => {
           blank
         />
       </div>
-    </div>
+    </CardContentWrapper>
   );
 };

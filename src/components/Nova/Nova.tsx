@@ -2,6 +2,7 @@ import { FC } from 'react';
 import './Nova.css';
 import * as THREE from 'three';
 import { Canvas } from '@react-three/fiber';
+import { AdaptiveDpr } from '@react-three/drei';
 import { Stars } from './Stars';
 import { OrbitControlsHelper } from './OrbitControlsHelper';
 import { ScaleControlsHelper } from './ScaleControlsHelper';
@@ -24,6 +25,7 @@ export const Nova: FC = () => {
           outputColorSpace: THREE.LinearSRGBColorSpace,
         }}
       >
+        <AdaptiveDpr pixelated />
         <ScaleControlsHelper>
           <Stars />
         </ScaleControlsHelper>

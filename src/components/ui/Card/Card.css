@@ -1,35 +1,27 @@
-@keyframes fadeoutAnimation {
-  from {
-    opacity: 0;
-    transform: translateY(50px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0px);
-  }
-}
 .card {
   width: 340px;
-  height: 450px;
-  z-index: 1;
   border-radius: 20px;
   padding: 10px;
+  position: relative;
+  overflow: hidden;
+}
+.card-overlay {
   background-color: rgba(255, 255, 255, 0.1);
   backdrop-filter: blur(3px);
-  transition: all 0.2s ease-in-out;
-}
-.card.expanded {
-  height: 550px;
-}
-.card.contact {
-  height: 450px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
 }
 .card-content-container {
   border-radius: 15px;
   overflow: hidden;
   height: 100%;
+  position: relative;
   display: flex;
   flex-direction: column;
+  background-color: rgba(0, 0, 0, 0.5);
 }
 .card-content {
   display: flex;
@@ -37,13 +29,6 @@
   justify-content: center;
   flex: 1;
   padding: 0 20px;
-}
-.content-container {
-  opacity: 0;
-  animation-name: fadeoutAnimation;
-  animation-duration: 0.3s;
-  animation-delay: 0.2s;
-  animation-fill-mode: forwards;
 }
 .content-title {
   font-family: 'Jost', sans-serif;

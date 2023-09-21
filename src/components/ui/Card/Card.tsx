@@ -7,6 +7,7 @@ import { About } from '../About/About';
 import { Experience } from '../Experience/Experience';
 import { Contact } from '../Contact/Contact';
 import { useLocation } from 'react-router-dom';
+import { motion } from 'framer-motion';
 
 export const Card: FC = () => {
   const [isMoved, setIsMoved] = useState<boolean>(false);
@@ -20,11 +21,13 @@ export const Card: FC = () => {
       : setIsContactSection(false);
   }, [location.pathname]);
   return (
-    <div
-      className={`card ${isMoved ? 'expanded' : ''} ${
-        isContactSection ? 'contact' : ''
-      }`}
+    <motion.div
+      initial={{ height: 450 }}
+      animate={{ height: isMoved ? (isContactSection ? 450 : 550) : 450 }}
+      transition={{ duration: 0.2 }}
+      className='card'
     >
+      <div className='card-overlay' />
       <div className='card-content-container'>
         <CardHeader isMoved={isMoved} />
         <div className='card-content'>
@@ -36,6 +39,6 @@ export const Card: FC = () => {
         </div>
         <CardFooter />
       </div>
-    </div>
+    </motion.div>
   );
 };

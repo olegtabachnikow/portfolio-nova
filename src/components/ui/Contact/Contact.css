@@ -13,9 +13,6 @@
   align-items: center;
   margin-bottom: 10px;
 }
-.contact-link:hover {
-  opacity: 1;
-}
 .contact-link-icon {
   filter: invert(99%) sepia(5%) saturate(1915%) hue-rotate(270deg)
     brightness(118%) contrast(100%);
@@ -40,14 +37,15 @@
   font-family: 'Jost', sans-serif;
   background: linear-gradient(
     to right,
-    rgba(239, 161, 4, 0.8) 0%,
-    rgba(122, 56, 245, 0.8) 96%
+    rgb(239, 161, 4) 0%,
+    rgb(122, 56, 245) 96%
   );
   text-transform: uppercase;
   margin-top: 40px;
   transition: all 0.2s ease-in-out;
   opacity: 0.8;
 }
-.contact-cv-button:hover {
+.contact-cv-button:hover,
+.contact-cv-button.mobile {
   opacity: 1;
 }

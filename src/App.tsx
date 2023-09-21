@@ -1,5 +1,4 @@
-import { FC, useEffect, useLayoutEffect } from 'react';
-import '../node_modules/normalize.css/normalize.css';
+import { CSSProperties, FC, useEffect, useLayoutEffect, useState } from 'react';
 import { Nova } from './components/Nova/Nova';
 import { useDispatch } from 'react-redux';
 import { setCameraPosition } from './redux/nova-position-slice';
@@ -7,11 +6,42 @@ import { setIsCameraMoving } from './redux/nova-is-moving-slice';
 import { setTransform } from './redux/nova-scale-slice';
 import { Card } from './components/ui/Card/Card';
 import { useLocation, useNavigate } from 'react-router-dom';
+import { useMediaQuery } from 'react-responsive';
+
+interface DimensionType {
+  width: number | string;
+  height: number | string;
+}
 
 export const App: FC = () => {
+  const [dimensions, setDimensions] = useState<DimensionType>({
+    width: '100vw',
+    height: '100vh',
+  });
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const location = useLocation();
+  const isTabletOrMobile = useMediaQuery({ query: '(max-width: 1224px)' });
+  const isLandscape = useMediaQuery({ query: '(orientation: landscape)' });
+
+  function handleResize() {
+    setDimensions({ width: window.innerWidth, height: window.innerHeight });
+  }
+
+  useEffect(() => {
+    window.addEventListener('resize', handleResize);
+    return window.removeEventListener('resize', handleResize);
+  });
+
+  const containerStyle: CSSProperties = {
+    height: dimensions.height,
+    width: dimensions.width,
+    position: 'relative',
+    overflow: 'hidden',
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+  };
 
   function handleFirstMove() {
     dispatch(setTransform({ x: 1, y: 1, z: 1 }));
@@ -43,18 +73,10 @@ export const App: FC = () => {
     location.pathname === '/contact' && handleThirdMove();
   });
 
-  return (
-    <div
-      style={{
-        height: '100vh',
-        width: '100vw',
-        position: 'relative',
-        overflow: 'hidden',
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center',
-      }}
-    >
+  return isTabletOrMobile && isLandscape ? (
+    <div style={{ ...containerStyle, color: 'white' }}>Rotate device</div>
+  ) : (
+    <div style={containerStyle}>
       <Nova />
       <Card />
     </div>
