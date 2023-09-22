@@ -1,4 +1,4 @@
-import { CSSProperties, FC, useEffect, useLayoutEffect, useState } from 'react';
+import { CSSProperties, FC, useEffect, useState } from 'react';
 import { Nova } from './components/Nova/Nova';
 import { useDispatch } from 'react-redux';
 import { setCameraPosition } from './redux/nova-position-slice';
@@ -46,22 +46,18 @@ export const App: FC = () => {
   function handleFirstMove() {
     dispatch(setTransform({ x: 1, y: 1, z: 1 }));
     dispatch(setIsCameraMoving({ isMoving: true }));
-    dispatch(setCameraPosition({ x: 10, y: 15, z: 35 }));
+    dispatch(setCameraPosition({ x: 15, y: 25, z: 20 }));
   }
   function handleSecondMove() {
-    dispatch(setTransform({ x: 2, y: 2, z: 2 }));
+    dispatch(setTransform({ x: 1, y: 1, z: 1 }));
     dispatch(setIsCameraMoving({ isMoving: true }));
-    dispatch(setCameraPosition({ x: 20, y: 50, z: 20 }));
+    dispatch(setCameraPosition({ x: 1.15, y: 30, z: 0.35 }));
   }
   function handleThirdMove() {
-    dispatch(setTransform({ x: 2, y: 2, z: 2 }));
+    dispatch(setTransform({ x: 1, y: 1, z: 1 }));
     dispatch(setIsCameraMoving({ isMoving: true }));
-    dispatch(setCameraPosition({ x: 15, y: 13, z: 15 }));
+    dispatch(setCameraPosition({ x: 2.1, y: 8.8, z: 7 }));
   }
-
-  useLayoutEffect(() => {
-    navigate('/about');
-  }, []);
 
   useEffect(() => {
     navigate('/about');
@@ -71,7 +67,7 @@ export const App: FC = () => {
     location.pathname === '/about' && handleFirstMove();
     location.pathname === '/experience' && handleSecondMove();
     location.pathname === '/contact' && handleThirdMove();
-  });
+  }, [location.pathname]);
 
   return isTabletOrMobile && isLandscape ? (
     <div style={{ ...containerStyle, color: 'white' }}>Rotate device</div>
