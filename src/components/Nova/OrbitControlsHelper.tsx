@@ -1,4 +1,8 @@
-import { FC, useEffect, useRef } from 'react';
+import {
+  FC,
+  // useEffect,
+  useRef,
+} from 'react';
 import * as THREE from 'three';
 import { useFrame, useThree } from '@react-three/fiber';
 import { OrbitControls } from '@react-three/drei';
