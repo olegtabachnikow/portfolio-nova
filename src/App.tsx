@@ -8,7 +8,6 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import { useMediaQuery } from 'react-responsive';
 import { GalaxyButton } from './components/ui/StarButton/GalaxyButton';
 import { motion } from 'framer-motion';
-import { RotateDeviceHelper } from './components/ui/RotateDeviceHelper/RotateDeviceHelper';
 
 interface DimensionType {
   width: number | string;
@@ -38,8 +37,6 @@ export const App: FC = () => {
   };
 
   useEffect(() => {
-    isTabletOrMobile &&
-      setDimensions({ width: window.innerWidth, height: window.innerHeight });
     navigate('/about');
   }, []);
 
@@ -49,6 +46,19 @@ export const App: FC = () => {
     location.pathname === '/experience' && handleSecondMove();
     location.pathname === '/contact' && handleThirdMove();
   }
+
+  useEffect(() => {
+    isTabletOrMobile && isLandscape && setIsStarted(false);
+    isTabletOrMobile && isLandscape
+      ? setDimensions({
+          width: window.innerWidth,
+          height: window.innerHeight,
+        })
+      : setDimensions({
+          width: window.innerWidth,
+          height: window.innerHeight,
+        });
+  });
 
   useEffect(() => {
     window.addEventListener('resize', handleResize);
@@ -79,10 +89,10 @@ export const App: FC = () => {
   }
 
   return isTabletOrMobile && isLandscape ? (
-    <RotateDeviceHelper
-      handler={() => setIsStarted(false)}
-      styles={containerStyle}
-    />
+    <div style={containerStyle}>
+      <div className='space' />
+      <span className='help-text'>Rotate the device</span>
+    </div>
   ) : (
     <div style={containerStyle}>
       <motion.div
