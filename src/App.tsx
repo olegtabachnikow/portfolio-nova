@@ -1,4 +1,4 @@
-import { CSSProperties, FC, useEffect, useState, Suspense } from 'react';
+import { CSSProperties, FC, useEffect, useState } from 'react';
 import { Nova } from './components/Nova/Nova';
 import { useDispatch } from 'react-redux';
 import { setCameraPosition } from './redux/nova-position-slice';
@@ -20,21 +20,10 @@ export const App: FC = () => {
     height: '100vh',
   });
   const [isStarted, setIsStarted] = useState<boolean>(false);
-  const [isLoading, setIsLoading] = useState<boolean>(true);
   const dispatch = useDispatch();
-  const navigate = useNavigate();
   const location = useLocation();
   const isTabletOrMobile = useMediaQuery({ query: '(max-width: 1224px)' });
   const isLandscape = useMediaQuery({ query: '(orientation: landscape)' });
-
-  function handleResize() {
-    setDimensions({ width: window.innerWidth, height: window.innerHeight });
-  }
-
-  useEffect(() => {
-    window.addEventListener('resize', handleResize);
-    return window.removeEventListener('resize', handleResize);
-  });
 
   const containerStyle: CSSProperties = {
     height: dimensions.height,
@@ -45,6 +34,15 @@ export const App: FC = () => {
     justifyContent: 'center',
     alignItems: 'center',
   };
+
+  function handleResize() {
+    setDimensions({ width: window.innerWidth, height: window.innerHeight });
+  }
+
+  useEffect(() => {
+    window.addEventListener('resize', handleResize);
+    return window.removeEventListener('resize', handleResize);
+  });
 
   function handleFirstMove() {
     dispatch(setIsCameraMoving({ isMoving: true }));
@@ -60,10 +58,6 @@ export const App: FC = () => {
   }
 
   useEffect(() => {
-    navigate('/about');
-  }, []);
-
-  useEffect(() => {
     location.pathname === '/about' && handleFirstMove();
     location.pathname === '/experience' && handleSecondMove();
     location.pathname === '/contact' && handleThirdMove();
@@ -73,20 +67,8 @@ export const App: FC = () => {
     setIsStarted(true);
   }
 
-  useEffect(() => {
-    const onPageLoad = () => {
-      setIsLoading(false);
-    };
-    if (document.readyState === 'complete') {
-      onPageLoad();
-    } else {
-      window.addEventListener('load', onPageLoad);
-      return () => window.removeEventListener('load', onPageLoad);
-    }
-  }, []);
-
   return isTabletOrMobile && isLandscape ? (
-    <div style={{ ...containerStyle, color: 'white' }}>
+    <div style={containerStyle}>
       <div className='space' />
       <span className='help-text'>Rotate the device</span>
     </div>
@@ -97,15 +79,9 @@ export const App: FC = () => {
         initial={{ opacity: 1 }}
         animate={isStarted ? { opacity: 0 } : { opacity: 1 }}
       />
-      {isLoading ? (
-        <span className='help-text'>Loading...</span>
-      ) : (
-        <>
-          <Nova isStarted={isStarted} />
-          <GalaxyButton handler={handleStart} isStarted={isStarted} />
-          <Card isStarted={isStarted} />
-        </>
-      )}
+      <Nova isStarted={isStarted} />
+      <GalaxyButton handler={handleStart} isStarted={isStarted} />
+      <Card isStarted={isStarted} />
     </div>
   );
 };
