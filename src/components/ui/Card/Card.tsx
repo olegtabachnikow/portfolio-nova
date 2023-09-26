@@ -1,4 +1,4 @@
-import { FC, useLayoutEffect, useState, useEffect } from 'react';
+import { FC, useLayoutEffect, useState } from 'react';
 import './Card.css';
 import { CardHeader } from '../CardHeader/CardHeader';
 import { CardFooter } from '../CardFooter/CardFooter';
@@ -6,7 +6,7 @@ import { Route, Routes } from 'react-router-dom';
 import { About } from '../About/About';
 import { Experience } from '../Experience/Experience';
 import { Contact } from '../Contact/Contact';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 import { motion } from 'framer-motion';
 
 interface CardProps {
@@ -17,7 +17,6 @@ export const Card: FC<CardProps> = ({ isStarted }) => {
   const [isMoved, setIsMoved] = useState<boolean>(false);
   const [isContactSection, setIsContactSection] = useState<boolean>(false);
   const location = useLocation();
-  const navigate = useNavigate();
 
   useLayoutEffect(() => {
     location.pathname === '/about' ? setIsMoved(false) : setIsMoved(true);
@@ -25,10 +24,6 @@ export const Card: FC<CardProps> = ({ isStarted }) => {
       ? setIsContactSection(true)
       : setIsContactSection(false);
   }, [location.pathname]);
-
-  useEffect(() => {
-    navigate('/about');
-  }, []);
 
   return (
     <motion.div
@@ -49,6 +44,7 @@ export const Card: FC<CardProps> = ({ isStarted }) => {
           <CardHeader isMoved={isMoved} />
           <div className='card-content'>
             <Routes>
+              <Route path='/' />
               <Route path='/about' element={<About />} />
               <Route path='/experience' element={<Experience />} />
               <Route path='/contact' element={<Contact />} />

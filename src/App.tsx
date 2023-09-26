@@ -1,4 +1,4 @@
-import { CSSProperties, FC, useEffect, useState } from 'react';
+import { CSSProperties, FC, useEffect, useState, useLayoutEffect } from 'react';
 import { Nova } from './components/Nova/Nova';
 import { useDispatch } from 'react-redux';
 import { setCameraPosition } from './redux/nova-position-slice';
@@ -8,6 +8,7 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import { useMediaQuery } from 'react-responsive';
 import { GalaxyButton } from './components/ui/StarButton/GalaxyButton';
 import { motion } from 'framer-motion';
+import { RotateDeviceHelper } from './components/ui/RotateDeviceHelper/RotateDeviceHelper';
 
 interface DimensionType {
   width: number | string;
@@ -24,6 +25,7 @@ export const App: FC = () => {
   const location = useLocation();
   const isTabletOrMobile = useMediaQuery({ query: '(max-width: 1224px)' });
   const isLandscape = useMediaQuery({ query: '(orientation: landscape)' });
+  const navigate = useNavigate();
 
   const containerStyle: CSSProperties = {
     height: dimensions.height,
@@ -35,8 +37,17 @@ export const App: FC = () => {
     alignItems: 'center',
   };
 
+  useEffect(() => {
+    isTabletOrMobile &&
+      setDimensions({ width: window.innerWidth, height: window.innerHeight });
+    navigate('/about');
+  }, []);
+
   function handleResize() {
     setDimensions({ width: window.innerWidth, height: window.innerHeight });
+    location.pathname === '/about' && handleFirstMove();
+    location.pathname === '/experience' && handleSecondMove();
+    location.pathname === '/contact' && handleThirdMove();
   }
 
   useEffect(() => {
@@ -68,10 +79,10 @@ export const App: FC = () => {
   }
 
   return isTabletOrMobile && isLandscape ? (
-    <div style={containerStyle}>
-      <div className='space' />
-      <span className='help-text'>Rotate the device</span>
-    </div>
+    <RotateDeviceHelper
+      handler={() => setIsStarted(false)}
+      styles={containerStyle}
+    />
   ) : (
     <div style={containerStyle}>
       <motion.div

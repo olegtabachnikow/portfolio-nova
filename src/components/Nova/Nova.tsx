@@ -5,19 +5,23 @@ import { Canvas } from '@react-three/fiber';
 import { AdaptiveDpr } from '@react-three/drei';
 import { Stars } from './Stars';
 import { OrbitControlsHelper } from './OrbitControlsHelper';
+import { useSelector } from 'react-redux';
+import { RootState } from '../../redux/store';
 
 interface NovaProps {
   isStarted: boolean;
 }
 
 export const Nova: FC<NovaProps> = ({ isStarted }) => {
+  const cameraPosition = useSelector(
+    (state: RootState) => state.cameraPosition
+  );
   const cameraSettings: any = {
     fov: 45,
     near: 0.1,
     far: 100,
-    position: [0, 0, 50],
+    position: [cameraPosition.x, cameraPosition.y, cameraPosition.z],
   };
-
   return (
     <div className='nova-container'>
       <Canvas

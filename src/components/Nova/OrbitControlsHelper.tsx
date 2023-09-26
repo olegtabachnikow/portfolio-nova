@@ -1,8 +1,4 @@
-import {
-  FC,
-  // useEffect,
-  useRef,
-} from 'react';
+import { FC, useRef } from 'react';
 import * as THREE from 'three';
 import { useFrame, useThree } from '@react-three/fiber';
 import { OrbitControls } from '@react-three/drei';
@@ -19,10 +15,6 @@ export const OrbitControlsHelper: FC = () => {
   const controlsRef = useRef<any>();
   const { camera } = useThree();
   camera.manual = false;
-
-  // useEffect(() => {
-  //   window.addEventListener('click', () => console.log(camera.position));
-  // });
 
   const updateCameraPosition = () => {
     dispatch(setIsCameraMoving({ isMoving: true }));
