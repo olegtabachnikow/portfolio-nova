@@ -64,7 +64,7 @@ export const Contact: FC = () => {
       <motion.a
         whileTap={{ scale: 0.8 }}
         className={`contact-cv-button ${isTabletOrMobile ? 'mobile' : ''}`}
-        href='https://github.com/Eskel4ik/portfolio/raw/gh-pages/OlegTabachnikowCV.pdf'
+        href='https://github.com/Eskel4ik/portfolio-nova/raw/gh-pages/OLEG_TABACHNIKOW_CV.pdf'
         download
       >
         Download CV
