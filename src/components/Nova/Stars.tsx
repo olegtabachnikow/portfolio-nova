@@ -1,7 +1,16 @@
 import { useRef, FC } from 'react';
 import * as THREE from 'three';
-import { useFrame, useThree } from '@react-three/fiber';
-import { store } from '../../redux/store';
+import { useFrame } from '@react-three/fiber';
+import { motion } from 'framer-motion-3d';
+
+interface StarsProps {
+  isStarted: boolean;
+}
+
+const variants = {
+  active: { scaleX: 1, scaleY: 1, scaleZ: 1 },
+  pending: { scaleX: 0, scaleY: 0, scaleZ: 0 },
+};
 
 const sizes: number[] = [];
 const shift: number[] = [];
@@ -51,14 +60,8 @@ const elapsedTime = {
   time: { value: 0 },
 };
 
-export const Stars: FC = () => {
+export const Stars: FC<StarsProps> = ({ isStarted }) => {
   const stars = useRef<any>();
-  const { scene } = useThree();
-  scene.scale.set(
-    store.getState().novaTransform.x,
-    store.getState().novaTransform.y,
-    store.getState().novaTransform.z
-  );
 
   const onBeforeCompile = (shader: any) => {
     shader.uniforms.time = elapsedTime.time;
@@ -111,7 +114,12 @@ export const Stars: FC = () => {
   });
 
   return (
-    <points ref={stars}>
+    <motion.points
+      ref={stars}
+      initial={{ scale: 0 }}
+      animate={isStarted ? variants.active : variants.pending}
+      transition={{ delay: 0.5, duration: 1, ease: 'backOut' }}
+    >
       <bufferGeometry attach='geometry' {...geometry} />
       <pointsMaterial
         size={0.155}
@@ -120,6 +128,6 @@ export const Stars: FC = () => {
         blending={THREE.AdditiveBlending}
         onBeforeCompile={onBeforeCompile}
       />
-    </points>
+    </motion.points>
   );
 };

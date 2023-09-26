@@ -9,7 +9,11 @@ import { Contact } from '../Contact/Contact';
 import { useLocation } from 'react-router-dom';
 import { motion } from 'framer-motion';
 
-export const Card: FC = () => {
+interface CardProps {
+  isStarted: boolean;
+}
+
+export const Card: FC<CardProps> = ({ isStarted }) => {
   const [isMoved, setIsMoved] = useState<boolean>(false);
   const [isContactSection, setIsContactSection] = useState<boolean>(false);
   const location = useLocation();
@@ -22,23 +26,31 @@ export const Card: FC = () => {
   }, [location.pathname]);
   return (
     <motion.div
-      initial={{ height: 450 }}
-      animate={{ height: isMoved ? (isContactSection ? 450 : 550) : 450 }}
-      transition={{ duration: 0.2 }}
-      className='card'
+      initial={{ scale: 0 }}
+      animate={{ scale: isStarted ? 1 : 0 }}
+      transition={{ duration: 1, delay: 0.5, ease: 'backOut' }}
     >
-      <div className='card-overlay' />
-      <div className='card-content-container'>
-        <CardHeader isMoved={isMoved} />
-        <div className='card-content'>
-          <Routes>
-            <Route path='/about' element={<About />} />
-            <Route path='/experience' element={<Experience />} />
-            <Route path='/contact' element={<Contact />} />
-          </Routes>
+      <motion.div
+        initial={{ height: 450, scale: 1 }}
+        animate={{
+          height: isMoved ? (isContactSection ? 450 : 550) : 450,
+        }}
+        transition={{ duration: 0.2 }}
+        className='card'
+      >
+        <div className='card-overlay' />
+        <div className='card-content-container'>
+          <CardHeader isMoved={isMoved} />
+          <div className='card-content'>
+            <Routes>
+              <Route path='/about' element={<About />} />
+              <Route path='/experience' element={<Experience />} />
+              <Route path='/contact' element={<Contact />} />
+            </Routes>
+          </div>
+          <CardFooter />
         </div>
-        <CardFooter />
-      </div>
+      </motion.div>
     </motion.div>
   );
 };

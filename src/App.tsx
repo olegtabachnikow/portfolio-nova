@@ -1,12 +1,13 @@
-import { CSSProperties, FC, useEffect, useState } from 'react';
+import { CSSProperties, FC, useEffect, useState, Suspense } from 'react';
 import { Nova } from './components/Nova/Nova';
 import { useDispatch } from 'react-redux';
 import { setCameraPosition } from './redux/nova-position-slice';
 import { setIsCameraMoving } from './redux/nova-is-moving-slice';
-import { setTransform } from './redux/nova-scale-slice';
 import { Card } from './components/ui/Card/Card';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { useMediaQuery } from 'react-responsive';
+import { GalaxyButton } from './components/ui/StarButton/GalaxyButton';
+import { motion } from 'framer-motion';
 
 interface DimensionType {
   width: number | string;
@@ -18,6 +19,8 @@ export const App: FC = () => {
     width: '100vw',
     height: '100vh',
   });
+  const [isStarted, setIsStarted] = useState<boolean>(false);
+  const [isLoading, setIsLoading] = useState<boolean>(true);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const location = useLocation();
@@ -44,17 +47,14 @@ export const App: FC = () => {
   };
 
   function handleFirstMove() {
-    dispatch(setTransform({ x: 1, y: 1, z: 1 }));
     dispatch(setIsCameraMoving({ isMoving: true }));
     dispatch(setCameraPosition({ x: 15, y: 25, z: 20 }));
   }
   function handleSecondMove() {
-    dispatch(setTransform({ x: 1, y: 1, z: 1 }));
     dispatch(setIsCameraMoving({ isMoving: true }));
     dispatch(setCameraPosition({ x: 1.15, y: 30, z: 0.35 }));
   }
   function handleThirdMove() {
-    dispatch(setTransform({ x: 1, y: 1, z: 1 }));
     dispatch(setIsCameraMoving({ isMoving: true }));
     dispatch(setCameraPosition({ x: 2.1, y: 8.8, z: 7 }));
   }
@@ -69,12 +69,43 @@ export const App: FC = () => {
     location.pathname === '/contact' && handleThirdMove();
   }, [location.pathname]);
 
+  function handleStart() {
+    setIsStarted(true);
+  }
+
+  useEffect(() => {
+    const onPageLoad = () => {
+      setIsLoading(false);
+    };
+    if (document.readyState === 'complete') {
+      onPageLoad();
+    } else {
+      window.addEventListener('load', onPageLoad);
+      return () => window.removeEventListener('load', onPageLoad);
+    }
+  }, []);
+
   return isTabletOrMobile && isLandscape ? (
-    <div style={{ ...containerStyle, color: 'white' }}>Rotate device</div>
+    <div style={{ ...containerStyle, color: 'white' }}>
+      <div className='space' />
+      <span className='help-text'>Rotate the device</span>
+    </div>
   ) : (
     <div style={containerStyle}>
-      <Nova />
-      <Card />
+      <motion.div
+        className='space'
+        initial={{ opacity: 1 }}
+        animate={isStarted ? { opacity: 0 } : { opacity: 1 }}
+      />
+      {isLoading ? (
+        <span className='help-text'>Loading...</span>
+      ) : (
+        <>
+          <Nova isStarted={isStarted} />
+          <GalaxyButton handler={handleStart} isStarted={isStarted} />
+          <Card isStarted={isStarted} />
+        </>
+      )}
     </div>
   );
 };
