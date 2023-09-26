@@ -1,4 +1,4 @@
-import { CSSProperties, FC, useEffect, useState, useLayoutEffect } from 'react';
+import { CSSProperties, FC, useEffect, useState } from 'react';
 import { Nova } from './components/Nova/Nova';
 import { useDispatch } from 'react-redux';
 import { setCameraPosition } from './redux/nova-position-slice';
