@@ -8,6 +8,7 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import { useMediaQuery } from 'react-responsive';
 import { GalaxyButton } from './components/ui/StarButton/GalaxyButton';
 import { motion } from 'framer-motion';
+import { LanguageSwitch } from './components/ui/LanguageSwitch/LanguageSwitch';
 
 interface DimensionType {
   width: number | string;
@@ -92,6 +93,7 @@ export const App: FC = () => {
       <Nova isStarted={isStarted} />
       <GalaxyButton handler={handleStart} isStarted={isStarted} />
       <Card isStarted={isStarted} />
+      <LanguageSwitch />
     </div>
   );
 };

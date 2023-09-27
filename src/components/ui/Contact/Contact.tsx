@@ -6,20 +6,27 @@ import mail from '../../../images/mail.svg';
 import { CardContentWrapper } from '../CardContentWrapper/CardContentWrapper';
 import { useMediaQuery } from 'react-responsive';
 import { motion } from 'framer-motion';
+import { useTranslation } from 'react-i18next';
 
 export const Contact: FC = () => {
+  const { t, i18n } = useTranslation();
   const isTabletOrMobile = useMediaQuery({ query: '(max-width: 1224px)' });
+
   return (
     <CardContentWrapper>
-      <span className='content-title contact-title'>contact</span>
+      <span className='content-title contact-title'> {t('contact.title')}</span>
       <motion.a
         whileTap={{ scale: 0.8 }}
         whileHover={{ opacity: 1 }}
-        className='contact-link'
+        className={`contact-link ${i18n.language === 'iw' ? 'reversed' : ''}`}
         href='https://maps.app.goo.gl/6eiMM5aqH1RDXTnX7'
         target='blank'
       >
-        <div className='contact-icon-container'>
+        <div
+          className={`contact-icon-container ${
+            i18n.language === 'iw' ? 'reversed' : ''
+          }`}
+        >
           <img
             className='contact-link-icon'
             src={locationMarker}
@@ -27,15 +34,19 @@ export const Contact: FC = () => {
             width={25}
           />
         </div>
-        <span>Sderot Sheshet HaYamim 30, Tel Aviv-Jaffa</span>
+        <span>{t('contact.address')}</span>
       </motion.a>
       <motion.a
         whileTap={{ scale: 0.8 }}
         whileHover={{ opacity: 1 }}
-        className='contact-link'
+        className={`contact-link ${i18n.language === 'iw' ? 'reversed' : ''}`}
         href='tel:+972539240665'
       >
-        <div className='contact-icon-container'>
+        <div
+          className={`contact-icon-container ${
+            i18n.language === 'iw' ? 'reversed' : ''
+          }`}
+        >
           <img
             className='contact-link-icon'
             src={phone}
@@ -48,10 +59,14 @@ export const Contact: FC = () => {
       <motion.a
         whileTap={{ scale: 0.8 }}
         whileHover={{ opacity: 1 }}
-        className='contact-link'
+        className={`contact-link ${i18n.language === 'iw' ? 'reversed' : ''}`}
         href='mailto:olegtabachnikow@gmail.com'
       >
-        <div className='contact-icon-container'>
+        <div
+          className={`contact-icon-container ${
+            i18n.language === 'iw' ? 'reversed' : ''
+          }`}
+        >
           <img
             className='contact-link-icon'
             src={mail}
@@ -67,7 +82,7 @@ export const Contact: FC = () => {
         href='https://github.com/olegtabachnikow/portfolio-nova/raw/gh-pages/OLEG_TABACHNIKOW_CV.pdf'
         download
       >
-        Download CV
+        {t('contact.button')}
       </motion.a>
     </CardContentWrapper>
   );

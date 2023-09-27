@@ -1,0 +1,27 @@
+.language-button-container {
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  right: 50px;
+  top: 50px;
+  width: 50px;
+  height: 50px;
+  background-color: #000;
+  cursor: pointer;
+  border-radius: 50%;
+}
+.language-select-button {
+  position: absolute;
+  outline: none;
+  padding: 0;
+  border: none;
+  height: 22.5px;
+  cursor: pointer;
+}
+.language-select-button img {
+  width: 30px;
+}
+.language-select-button-placeholder {
+  z-index: 10;
+}

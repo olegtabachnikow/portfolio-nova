@@ -116,7 +116,7 @@ export const Stars: FC<StarsProps> = ({ isStarted }) => {
   return (
     <motion.points
       ref={stars}
-      initial={{ scale: 0 }}
+      initial={{ scale: isStarted ? 1 : 0 }}
       animate={isStarted ? variants.active : variants.pending}
       transition={{ delay: 0.5, duration: 1, ease: 'backOut' }}
     >

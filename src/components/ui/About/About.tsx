@@ -2,19 +2,21 @@ import { FC } from 'react';
 import './About.css';
 import { SocialIcon } from 'react-custom-social-icons';
 import { CardContentWrapper } from '../CardContentWrapper/CardContentWrapper';
+import { useTranslation } from 'react-i18next';
 
 export const About: FC = () => {
+  const { t, i18n } = useTranslation();
   return (
     <CardContentWrapper>
-      <span className='content-title'>About</span>
-      <p className='card-about-text'>
-        As a highly motivated Frontend developer, my experience covers Israel
-        and United States. I have extensive experience building single page
-        applications and mobile applications. I constantly seek to improve my
-        developer skill set by completing additional courses and staying
-        up-to-date with the latest trends and technologies.
-      </p>
-      <div className='card-icon-container'>
+      <span className='content-title'>{t('about.title')}</span>
+      <p className='card-about-text'>{t('about.text')}</p>
+      <div
+        className='card-icon-container'
+        style={{
+          flexDirection: i18n.language === 'iw' ? 'row-reverse' : 'row',
+          justifyContent: 'flex-start',
+        }}
+      >
         <SocialIcon
           className='card-icon'
           network='linkedin'

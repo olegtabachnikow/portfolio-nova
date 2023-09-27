@@ -1,12 +1,25 @@
 import { FC } from 'react';
 import './Button.css';
 import { NavLink } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 
 interface ButtonProps {
   text: string;
 }
 
 export const Button: FC<ButtonProps> = ({ text }) => {
+  const { t } = useTranslation();
+  function getText(str: string) {
+    if (str === 'About') {
+      return t('footer.about');
+    }
+    if (str === 'Experience') {
+      return t('footer.experience');
+    }
+    if (str === 'Contact') {
+      return t('footer.contact');
+    }
+  }
   return (
     <NavLink
       to={`/${text.toLowerCase()}`}
@@ -15,7 +28,7 @@ export const Button: FC<ButtonProps> = ({ text }) => {
         isPending ? 'pending' : isActive ? 'active' : ''
       }
     >
-      {text}
+      {getText(text)}
     </NavLink>
   );
 };

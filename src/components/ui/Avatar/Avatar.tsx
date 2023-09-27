@@ -1,6 +1,7 @@
 import { FC } from 'react';
 import './Avatar.css';
 import { motion } from 'framer-motion';
+import { useTranslation } from 'react-i18next';
 
 interface AvatarProps {
   isMoved: boolean;
@@ -11,14 +12,17 @@ const initialStyles = {
 };
 
 export const Avatar: FC<AvatarProps> = ({ isMoved }) => {
+  const { i18n } = useTranslation();
   return (
     <motion.div
       initial={initialStyles}
       animate={
         isMoved
-          ? {
-              transform: 'translate(-120px,-20px) scale(0.7)',
-            }
+          ? i18n.language === 'iw'
+            ? { transform: 'translate(120px,-20px) scale(0.7)' }
+            : {
+                transform: 'translate(-120px,-20px) scale(0.7)',
+              }
           : initialStyles
       }
       className='avatar'

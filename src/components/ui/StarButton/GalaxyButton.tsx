@@ -1,6 +1,7 @@
 import { FC, useEffect, useLayoutEffect, useState } from 'react';
 import './GalaxyButton.css';
 import { motion } from 'framer-motion';
+import { useTranslation } from 'react-i18next';
 
 const stars: number[] = new Array(20).fill(1);
 const starsStatic: number[] = new Array(5).fill(1);
@@ -11,6 +12,7 @@ interface GalaxyButtonProps {
 
 export const GalaxyButton: FC<GalaxyButtonProps> = ({ handler, isStarted }) => {
   const [isDisabled, setIsDisabled] = useState<boolean>(true);
+  const { t } = useTranslation();
   function handleClick() {
     handler();
   }
@@ -46,7 +48,8 @@ export const GalaxyButton: FC<GalaxyButtonProps> = ({ handler, isStarted }) => {
     <motion.button
       disabled={isDisabled}
       whileTap={{ scale: 0.9 }}
-      animate={isStarted ? { scale: 0 } : { scale: 1 }}
+      initial={{ scale: isStarted ? 0 : 1 }}
+      animate={{ scale: isStarted ? 0 : 1 }}
       transition={{ duration: 0.35 }}
       className='galaxy-button'
       onClick={handleClick}
@@ -85,7 +88,7 @@ export const GalaxyButton: FC<GalaxyButtonProps> = ({ handler, isStarted }) => {
         transition={{ duration: 0.5 }}
         className='galaxy-button-text'
       >
-        start
+        {t('start')}
       </motion.span>
       <div className='galaxy-button-shadow' />
     </motion.button>

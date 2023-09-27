@@ -8,6 +8,7 @@ import { Experience } from '../Experience/Experience';
 import { Contact } from '../Contact/Contact';
 import { useLocation } from 'react-router-dom';
 import { motion } from 'framer-motion';
+import { useTranslation } from 'react-i18next';
 
 interface CardProps {
   isStarted: boolean;
@@ -17,6 +18,7 @@ export const Card: FC<CardProps> = ({ isStarted }) => {
   const [isMoved, setIsMoved] = useState<boolean>(false);
   const [isContactSection, setIsContactSection] = useState<boolean>(false);
   const location = useLocation();
+  const { i18n } = useTranslation();
 
   useLayoutEffect(() => {
     location.pathname === '/about' ? setIsMoved(false) : setIsMoved(true);
@@ -27,14 +29,24 @@ export const Card: FC<CardProps> = ({ isStarted }) => {
 
   return (
     <motion.div
-      initial={{ scale: 0 }}
+      initial={{ scale: isStarted ? 1 : 0 }}
       animate={{ scale: isStarted ? 1 : 0 }}
       transition={{ duration: 1, delay: 0.5, ease: 'backOut' }}
     >
       <motion.div
         initial={{ height: 450, scale: 1 }}
         animate={{
-          height: isMoved ? (isContactSection ? 450 : 550) : 450,
+          height: isMoved
+            ? isContactSection
+              ? 450
+              : i18n.language === 'en'
+              ? 550
+              : i18n.language === 'ru'
+              ? 595
+              : 580
+            : i18n.language === 'en'
+            ? 450
+            : 470,
         }}
         transition={{ duration: 0.2 }}
         className='card'

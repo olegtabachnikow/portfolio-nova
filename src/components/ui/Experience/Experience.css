@@ -18,6 +18,10 @@
   top: 7px;
   border-radius: 50%;
 }
+.experience-item.reversed::after {
+  left: auto;
+  right: 36px;
+}
 .experience-item-date {
   width: 14%;
   opacity: 0.7;
@@ -33,6 +37,9 @@
   padding: 5px 0 1px 13px;
   width: 85%;
   font-size: 13px;
+}
+.experience-item.reversed .experience-item-section {
+  padding: 5px 13px 1px 0;
 }
 .experience-item-text {
   font-size: 13px;
