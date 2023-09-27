@@ -1,49 +1,93 @@
-import { FC } from 'react';
+import { FC, useEffect, useLayoutEffect, useState } from 'react';
 import './GalaxyButton.css';
 import { motion } from 'framer-motion';
 
-const stars: number[] = [];
-stars.length = 10;
-stars.fill(1);
-
+const stars: number[] = new Array(20).fill(1);
+const starsStatic: number[] = new Array(5).fill(1);
 interface GalaxyButtonProps {
   handler: () => void;
   isStarted: boolean;
 }
 
 export const GalaxyButton: FC<GalaxyButtonProps> = ({ handler, isStarted }) => {
+  const [isDisabled, setIsDisabled] = useState<boolean>(true);
   function handleClick() {
     handler();
   }
+  useLayoutEffect(() => {
+    const getRndValue = (min: number, max: number) =>
+      Math.floor(Math.random() * (max - min + 1) + min);
+    const particles = document.querySelectorAll('.galaxy-star');
+    particles.forEach((particle) => {
+      particle.setAttribute(
+        'style',
+        `
+        --angle: ${getRndValue(0, 360)};
+        --duration: ${getRndValue(6, 20)};
+        --delay: ${getRndValue(1, 10)};
+        --alpha: ${getRndValue(30, 90) / 100};
+        --size: ${getRndValue(4, 6)};
+        --distance: ${getRndValue(130, 200)};
+      `
+      );
+    });
+  }, []);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setIsDisabled(false);
+    }, 3000);
+    return () => {
+      clearTimeout(timer);
+    };
+  }, []);
+
   return (
-    <motion.div
-      onClick={handleClick}
+    <motion.button
+      disabled={isDisabled}
       whileTap={{ scale: 0.9 }}
-      whileHover={{ filter: 'drop-shadow(0px 0px 40px blue)' }}
       animate={isStarted ? { scale: 0 } : { scale: 1 }}
       transition={{ duration: 0.35 }}
-      className='galaxy-button-container'
+      className='galaxy-button'
+      onClick={handleClick}
     >
-      <span className='galaxy-button-spark' />
-      <button className='galaxy-button'>
-        <span className='galaxy-button-text'>Start</span>
-        <div className='galaxy-background-container'>
-          <div className='galaxy-background'>
-            <div className='galaxy-stars-container'>
-              {stars.map((el, i: number) => (
-                <span
-                  key={el + i}
-                  className={`galaxy-star galaxy-star-${i + 1}`}
-                />
-              ))}
-            </div>
-            <div className='galaxy-star-static galaxy-star-static-1' />
-            <div className='galaxy-star-static galaxy-star-static-2' />
-            <div className='galaxy-star-static galaxy-star-static-3' />
-            <div className='galaxy-star-static galaxy-star-static-4' />
-          </div>
-        </div>
-      </button>
-    </motion.div>
+      <div className='galaxy-container'>
+        <motion.div
+          initial={{ transform: 'translate(100px, 100px)' }}
+          animate={!isDisabled && { transform: 'translate(0, 0)' }}
+          transition={{ duration: 0.5 }}
+          className='galaxy-big-star'
+        />
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={!isDisabled && { opacity: 1 }}
+          transition={{ duration: 0.5 }}
+          className='galaxy-stars-container'
+        >
+          {stars.map((el, i) => (
+            <span key={el + i} className='galaxy-star' />
+          ))}
+        </motion.div>
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={!isDisabled && { opacity: 1 }}
+          transition={{ duration: 0.5 }}
+          className='galaxy-stars-static-container'
+        >
+          {starsStatic.map((el, i) => (
+            <span key={`${el + i}-static`} className='galaxy-star-static' />
+          ))}
+        </motion.div>
+      </div>
+      <motion.span
+        initial={{ opacity: 0 }}
+        animate={!isDisabled && { opacity: 1 }}
+        transition={{ duration: 0.5 }}
+        className='galaxy-button-text'
+      >
+        start
+      </motion.span>
+      <div className='galaxy-button-shadow' />
+    </motion.button>
   );
 };

@@ -1,4 +1,4 @@
-import { CSSProperties, FC, useEffect, useState } from 'react';
+import { CSSProperties, FC, useCallback, useEffect, useState } from 'react';
 import { Nova } from './components/Nova/Nova';
 import { useDispatch } from 'react-redux';
 import { setCameraPosition } from './redux/nova-position-slice';
@@ -40,30 +40,19 @@ export const App: FC = () => {
     navigate('/about');
   }, []);
 
-  function handleResize() {
+  const handleResize = useCallback(() => {
     setDimensions({ width: window.innerWidth, height: window.innerHeight });
     location.pathname === '/about' && handleFirstMove();
     location.pathname === '/experience' && handleSecondMove();
     location.pathname === '/contact' && handleThirdMove();
-  }
-
-  useEffect(() => {
-    isTabletOrMobile && isLandscape && setIsStarted(false);
-    isTabletOrMobile && isLandscape
-      ? setDimensions({
-          width: window.innerWidth,
-          height: window.innerHeight,
-        })
-      : setDimensions({
-          width: window.innerWidth,
-          height: window.innerHeight,
-        });
-  });
+  }, [setDimensions, handleFirstMove, handleSecondMove, handleThirdMove]);
 
   useEffect(() => {
     window.addEventListener('resize', handleResize);
-    return window.removeEventListener('resize', handleResize);
-  });
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
+  }, [handleResize]);
 
   function handleFirstMove() {
     dispatch(setIsCameraMoving({ isMoving: true }));
