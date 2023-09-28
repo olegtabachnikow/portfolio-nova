@@ -1,4 +1,4 @@
-import { CSSProperties, FC, useCallback, useEffect, useState } from 'react';
+import { CSSProperties, FC, useEffect, useState } from 'react';
 import { Nova } from './components/Nova/Nova';
 import { useDispatch } from 'react-redux';
 import { setCameraPosition } from './redux/nova-position-slice';
@@ -11,27 +11,18 @@ import { motion } from 'framer-motion';
 import { LanguageSwitch } from './components/ui/LanguageSwitch/LanguageSwitch';
 import { useTranslation } from 'react-i18next';
 
-interface DimensionType {
-  width: number | string;
-  height: number | string;
-}
-
 export const App: FC = () => {
-  const [dimensions, setDimensions] = useState<DimensionType>({
-    width: '100vw',
-    height: '100vh',
-  });
+  const isTabletOrMobile = useMediaQuery({ maxWidth: 1224 });
   const [isStarted, setIsStarted] = useState<boolean>(false);
   const dispatch = useDispatch();
   const location = useLocation();
-  const isMobile = useMediaQuery({ maxWidth: 767 });
-  const isLandscape = useMediaQuery({ query: '(orientation: landscape)' });
   const navigate = useNavigate();
+  const isLandscape = useMediaQuery({ query: '(orientation: landscape)' });
   const { t } = useTranslation();
 
   const containerStyle: CSSProperties = {
-    height: dimensions.height,
-    width: dimensions.width,
+    height: '100%',
+    width: '100%',
     position: 'relative',
     overflow: 'hidden',
     display: 'flex',
@@ -40,23 +31,23 @@ export const App: FC = () => {
   };
 
   useEffect(() => {
-    setDimensions({ width: window.innerWidth, height: window.innerHeight });
-    navigate('/about');
+    document.body.setAttribute('height', `${window.innerHeight}px`);
+    navigate('/');
   }, []);
 
-  const handleResize = useCallback(() => {
-    setDimensions({ width: window.innerWidth, height: window.innerHeight });
-    location.pathname === '/about' && handleFirstMove();
+  const handleResize = () => {
+    document.body.setAttribute('height', `${window.innerHeight}px`);
+    location.pathname === '/' && handleFirstMove();
     location.pathname === '/experience' && handleSecondMove();
     location.pathname === '/contact' && handleThirdMove();
-  }, [setDimensions, handleFirstMove, handleSecondMove, handleThirdMove]);
+  };
 
   useEffect(() => {
     window.addEventListener('resize', handleResize);
     return () => {
       window.removeEventListener('resize', handleResize);
     };
-  }, [handleResize]);
+  });
 
   function handleFirstMove() {
     dispatch(setIsCameraMoving({ isMoving: true }));
@@ -72,7 +63,7 @@ export const App: FC = () => {
   }
 
   useEffect(() => {
-    location.pathname === '/about' && handleFirstMove();
+    location.pathname === '/' && handleFirstMove();
     location.pathname === '/experience' && handleSecondMove();
     location.pathname === '/contact' && handleThirdMove();
   }, [location.pathname]);
@@ -81,7 +72,7 @@ export const App: FC = () => {
     setIsStarted(true);
   }
 
-  return isMobile && isLandscape ? (
+  return isTabletOrMobile && isLandscape ? (
     <div style={containerStyle}>
       <div className='space' />
       <span className='help-text'>{t('rotate')}</span>

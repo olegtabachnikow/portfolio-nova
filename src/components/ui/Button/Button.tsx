@@ -22,7 +22,7 @@ export const Button: FC<ButtonProps> = ({ text }) => {
   }
   return (
     <NavLink
-      to={`/${text.toLowerCase()}`}
+      to={`/${text === 'About' ? '' : text.toLowerCase()}`}
       id='button'
       className={({ isActive, isPending }) =>
         isPending ? 'pending' : isActive ? 'active' : ''

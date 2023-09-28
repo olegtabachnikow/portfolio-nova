@@ -21,7 +21,7 @@ export const Card: FC<CardProps> = ({ isStarted }) => {
   const { i18n } = useTranslation();
 
   useLayoutEffect(() => {
-    location.pathname === '/about' ? setIsMoved(false) : setIsMoved(true);
+    location.pathname === '/' ? setIsMoved(false) : setIsMoved(true);
     location.pathname === '/contact'
       ? setIsContactSection(true)
       : setIsContactSection(false);
@@ -56,8 +56,7 @@ export const Card: FC<CardProps> = ({ isStarted }) => {
           <CardHeader isMoved={isMoved} />
           <div className='card-content'>
             <Routes>
-              <Route path='/' />
-              <Route path='/about' element={<About />} />
+              <Route path='/' element={<About />} />
               <Route path='/experience' element={<Experience />} />
               <Route path='/contact' element={<Contact />} />
             </Routes>

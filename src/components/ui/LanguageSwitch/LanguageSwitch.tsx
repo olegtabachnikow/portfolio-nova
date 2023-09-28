@@ -5,10 +5,12 @@ import israel from '../../../images/israel.svg';
 import unitedKingdom from '../../../images/england.svg';
 import russia from '../../../images/ru.svg';
 import { useTranslation } from 'react-i18next';
+import { useMediaQuery } from 'react-responsive';
 
 export const LanguageSwitch: FC = () => {
   const [isActive, setIsActive] = useState<boolean>(false);
   const { i18n } = useTranslation();
+  const isTabletOrMobile = useMediaQuery({ maxWidth: 1224 });
 
   const changeLanguage = (language: string): void => {
     i18n.changeLanguage(language);
@@ -16,7 +18,11 @@ export const LanguageSwitch: FC = () => {
   };
 
   return (
-    <div className='language-button-container'>
+    <div
+      className={`language-button-container ${
+        isTabletOrMobile ? 'mobile' : ''
+      }`}
+    >
       <button
         className='language-select-button main'
         onClick={() => setIsActive((state) => !state)}

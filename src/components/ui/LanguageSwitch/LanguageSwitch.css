@@ -3,8 +3,12 @@
   right: 30px;
   top: 30px;
 }
+.language-button-container.mobile {
+  top: 15px;
+  right: 15px;
+}
 .language-select-button {
-  filter: drop-shadow(0 0 15px #baac91);
+  filter: drop-shadow(0 0 8px #baac913f);
   outline: none;
   border: none;
   position: relative;
