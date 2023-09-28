@@ -1,5 +1,6 @@
 {
   "start": "start",
+  "rotate": "Rotate the device",
   "myinfo": {
     "name": "Oleg Tabachnikow",
     "job": "frontend web developer"
