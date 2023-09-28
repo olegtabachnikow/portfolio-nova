@@ -47,6 +47,7 @@ export const GalaxyButton: FC<GalaxyButtonProps> = ({ handler, isStarted }) => {
   return (
     <motion.button
       disabled={isDisabled}
+      whileHover={{ scale: isStarted ? 0 : 0.95 }}
       whileTap={{ scale: 0.9 }}
       initial={{ scale: isStarted ? 0 : 1 }}
       animate={{ scale: isStarted ? 0 : 1 }}
@@ -54,7 +55,7 @@ export const GalaxyButton: FC<GalaxyButtonProps> = ({ handler, isStarted }) => {
       className='galaxy-button'
       onClick={handleClick}
     >
-      <div className='galaxy-container'>
+      <motion.div className='galaxy-container'>
         <motion.div
           initial={{ transform: 'translate(100px, 100px)' }}
           animate={!isDisabled && { transform: 'translate(0, 0)' }}
@@ -81,7 +82,7 @@ export const GalaxyButton: FC<GalaxyButtonProps> = ({ handler, isStarted }) => {
             <span key={`${el + i}-static`} className='galaxy-star-static' />
           ))}
         </motion.div>
-      </div>
+      </motion.div>
       <motion.span
         initial={{ opacity: 0 }}
         animate={!isDisabled && { opacity: 1 }}

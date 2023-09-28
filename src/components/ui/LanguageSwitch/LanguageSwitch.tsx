@@ -18,7 +18,7 @@ export const LanguageSwitch: FC = () => {
   return (
     <div className='language-button-container'>
       <button
-        className='language-select-button language-select-button-placeholder'
+        className='language-select-button main'
         onClick={() => setIsActive((state) => !state)}
       >
         <img
@@ -32,30 +32,50 @@ export const LanguageSwitch: FC = () => {
           alt='flag'
         />
       </button>
-      <motion.button
-        initial={{ left: 10 }}
-        animate={{ left: isActive ? -50 : 10 }}
-        className='language-select-button'
-        onClick={() => changeLanguage('iw')}
+      <motion.div
+        animate={{
+          transform: isActive ? 'translateX(-80px)' : 'translateX(0)',
+        }}
+        className='language-item'
       >
-        <img src={israel} alt='israel flag' />
-      </motion.button>
-      <motion.button
-        initial={{ left: 10, top: 13.75 }}
-        animate={{ left: isActive ? -40 : 10, top: isActive ? 60 : 13.75 }}
-        className='language-select-button'
-        onClick={() => changeLanguage('en')}
+        {i18n.language === 'iw' ? (
+          <motion.button
+            className='language-select-button'
+            onClick={() => changeLanguage('en')}
+          >
+            <img src={unitedKingdom} alt='english flag' />
+          </motion.button>
+        ) : (
+          <motion.button
+            className='language-select-button'
+            onClick={() => changeLanguage('iw')}
+          >
+            <img src={israel} alt='israel flag' />
+          </motion.button>
+        )}
+      </motion.div>
+      <motion.div
+        animate={{
+          transform: isActive ? 'translateX(-160px)' : 'translateX(0)',
+        }}
+        className='language-item'
       >
-        <img src={unitedKingdom} alt='english flag' />
-      </motion.button>
-      <motion.button
-        initial={{ left: 10, top: 13.75 }}
-        animate={{ left: isActive ? 20 : 10, top: isActive ? 70 : 13.75 }}
-        className='language-select-button'
-        onClick={() => changeLanguage('ru')}
-      >
-        <img src={russia} alt='russian flag' />
-      </motion.button>
+        {i18n.language === 'ru' ? (
+          <motion.button
+            className='language-select-button'
+            onClick={() => changeLanguage('en')}
+          >
+            <img src={unitedKingdom} alt='english flag' />
+          </motion.button>
+        ) : (
+          <motion.button
+            className='language-select-button'
+            onClick={() => changeLanguage('ru')}
+          >
+            <img src={russia} alt='russian flag' />
+          </motion.button>
+        )}
+      </motion.div>
     </div>
   );
 };

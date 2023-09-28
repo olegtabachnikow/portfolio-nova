@@ -1,3 +1,7 @@
 .card-footer {
   display: flex;
+  flex-direction: row;
+}
+.card-footer.reversed {
+  flex-direction: row-reverse;
 }

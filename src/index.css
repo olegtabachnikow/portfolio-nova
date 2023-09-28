@@ -90,6 +90,8 @@ body,
   }
 }
 .help-text {
-  font-family: 'Casanova Scotia', sans-serif;
+  font-family: 'Impact', sans-serif;
+  letter-spacing: 2px;
+  font-size: 30px;
   color: #fff;
 }

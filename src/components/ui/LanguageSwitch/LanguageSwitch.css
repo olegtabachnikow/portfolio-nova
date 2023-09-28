@@ -1,27 +1,31 @@
 .language-button-container {
   position: absolute;
+  right: 30px;
+  top: 30px;
+}
+.language-select-button {
+  filter: drop-shadow(0 0 15px #baac91);
+  outline: none;
+  border: none;
+  position: relative;
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  background-color: black;
   display: flex;
   justify-content: center;
   align-items: center;
-  right: 50px;
-  top: 50px;
-  width: 50px;
-  height: 50px;
-  background-color: #000;
   cursor: pointer;
-  border-radius: 50%;
+  z-index: 0;
 }
-.language-select-button {
-  position: absolute;
-  outline: none;
-  padding: 0;
-  border: none;
-  height: 22.5px;
-  cursor: pointer;
+.language-select-button.main {
+  z-index: 1;
 }
 .language-select-button img {
   width: 30px;
 }
-.language-select-button-placeholder {
-  z-index: 10;
+.language-item {
+  position: absolute;
+  top: 0;
+  left: 0;
 }

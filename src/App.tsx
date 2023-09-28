@@ -9,6 +9,7 @@ import { useMediaQuery } from 'react-responsive';
 import { GalaxyButton } from './components/ui/StarButton/GalaxyButton';
 import { motion } from 'framer-motion';
 import { LanguageSwitch } from './components/ui/LanguageSwitch/LanguageSwitch';
+import { useTranslation } from 'react-i18next';
 
 interface DimensionType {
   width: number | string;
@@ -23,9 +24,10 @@ export const App: FC = () => {
   const [isStarted, setIsStarted] = useState<boolean>(false);
   const dispatch = useDispatch();
   const location = useLocation();
-  const isTabletOrMobile = useMediaQuery({ query: '(max-width: 1224px)' });
+  const isMobile = useMediaQuery({ maxWidth: 767 });
   const isLandscape = useMediaQuery({ query: '(orientation: landscape)' });
   const navigate = useNavigate();
+  const { t } = useTranslation();
 
   const containerStyle: CSSProperties = {
     height: dimensions.height,
@@ -38,6 +40,7 @@ export const App: FC = () => {
   };
 
   useEffect(() => {
+    setDimensions({ width: window.innerWidth, height: window.innerHeight });
     navigate('/about');
   }, []);
 
@@ -78,10 +81,11 @@ export const App: FC = () => {
     setIsStarted(true);
   }
 
-  return isTabletOrMobile && isLandscape ? (
+  return isMobile && isLandscape ? (
     <div style={containerStyle}>
       <div className='space' />
-      <span className='help-text'>Rotate the device</span>
+      <span className='help-text'>{t('rotate')}</span>
+      <LanguageSwitch />
     </div>
   ) : (
     <div style={containerStyle}>
