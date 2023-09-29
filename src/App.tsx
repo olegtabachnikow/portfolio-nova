@@ -1,4 +1,4 @@
-import { CSSProperties, FC, useEffect, useState } from 'react';
+import { CSSProperties, FC, useEffect, useLayoutEffect, useState } from 'react';
 import { Nova } from './components/Nova/Nova';
 import { useDispatch } from 'react-redux';
 import { setCameraPosition } from './redux/nova-position-slice';
@@ -11,6 +11,16 @@ import { motion } from 'framer-motion';
 import { LanguageSwitch } from './components/ui/LanguageSwitch/LanguageSwitch';
 import { useTranslation } from 'react-i18next';
 
+const containerStyle: CSSProperties = {
+  height: '100%',
+  width: '100%',
+  position: 'relative',
+  overflow: 'hidden',
+  display: 'flex',
+  justifyContent: 'center',
+  alignItems: 'center',
+};
+
 export const App: FC = () => {
   const isTabletOrMobile = useMediaQuery({ maxWidth: 1224 });
   const [isStarted, setIsStarted] = useState<boolean>(false);
@@ -20,34 +30,9 @@ export const App: FC = () => {
   const isLandscape = useMediaQuery({ query: '(orientation: landscape)' });
   const { t } = useTranslation();
 
-  const containerStyle: CSSProperties = {
-    height: '100%',
-    width: '100%',
-    position: 'relative',
-    overflow: 'hidden',
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
-  };
-
-  useEffect(() => {
-    document.body.setAttribute('height', `${window.innerHeight}px`);
+  useLayoutEffect(() => {
     navigate('/');
   }, []);
-
-  const handleResize = () => {
-    document.body.setAttribute('height', `${window.innerHeight}px`);
-    location.pathname === '/' && handleFirstMove();
-    location.pathname === '/experience' && handleSecondMove();
-    location.pathname === '/contact' && handleThirdMove();
-  };
-
-  useEffect(() => {
-    window.addEventListener('resize', handleResize);
-    return () => {
-      window.removeEventListener('resize', handleResize);
-    };
-  });
 
   function handleFirstMove() {
     dispatch(setIsCameraMoving({ isMoving: true }));
@@ -79,7 +64,7 @@ export const App: FC = () => {
       <LanguageSwitch />
     </div>
   ) : (
-    <div style={containerStyle}>
+    <div style={containerStyle} className='app-main-container'>
       <motion.div
         className='space'
         initial={{ opacity: 1 }}
